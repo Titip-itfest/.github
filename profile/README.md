@@ -1,4 +1,4 @@
-# ❄️ TITIP IoT - Smart Cold Locker (Loker Dingin Pintar)
+# ❄️ TITIP - Smart Cold Locker (Loker Dingin Pintar)
 
 Sistem loker pendingin pintar berbasis IoT untuk pedagang pasar dan pengguna umum. Sistem ini mengintegrasikan aplikasi web **Laravel PWA** dengan modul relay solenoid pada **Raspberry Pi** untuk kontrol penguncian otomatis melalui scan kamera QR Code atau tombol kontrol langsung.
 
@@ -26,7 +26,8 @@ Sistem loker pendingin pintar berbasis IoT untuk pedagang pasar dan pengguna umu
 |   - Dashboard Monitoring & Pengakhiran Sewa           |
 +---------------------------+---------------------------+
                             |
-           HTTP API Polling | (Port 8000 / WiFi LAN)
+           HTTP API Polling | (Local: Port 8000 / WiFi LAN)
+                            | (Server: https://titiploker.biz.id)
                             v
 +-------------------------------------------------------+
 |               Raspberry Pi (Python 3)                 |
@@ -73,7 +74,7 @@ Relay mengendalikan solenoid lock (12V) menggunakan catu daya eksternal. Sinyal 
 ### 2. Konfigurasi Lingkungan:
 Pastikan database sudah dibuat dan file `.env` sudah siap:
 ```bash
-cd ~/Projects/Titip/titip-pwa
+cd ~/path/titip-pwa
 
 # Salin .env jika belum ada
 cp .env.example .env
@@ -121,7 +122,7 @@ sudo firewall-cmd --add-port=8000/tcp --permanent && sudo firewall-cmd --reload
 
 ## 🍓 Panduan Menjalankan Script Raspberry Pi (`unlock.py`)
 
-File `pi/unlock.py` bertindak sebagai bridge cerdas untuk:
+File `pi/unlock.py` bertindak sebagai bridge untuk:
 1. **Mengontrol Solenoid Lock** via Relay GPIO 17 saat QR discan atau tombol di website ditekan.
 2. **Membaca Sensor Suhu & Kelembaban (DS18B20 / Simulasi)** dan mengirimkan telemetry real-time ke Dashboard website setiap 5 detik.
 
